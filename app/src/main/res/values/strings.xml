@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Cep - Koin</string>
+    <string name="empty_field_error">Digite o cep</string>
+</resources>
