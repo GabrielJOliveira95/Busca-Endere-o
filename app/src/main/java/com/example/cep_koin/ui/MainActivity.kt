@@ -5,6 +5,7 @@ import android.view.View
 import com.example.base.presentation.BaseActivity
 import com.example.cep_koin.databinding.ActivityMainBinding
 import com.example.cep_koin.R
+import com.example.extensions.hideKeyboard
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -55,6 +56,7 @@ class MainActivity : BaseActivity(), CepContract.View {
     }
 
     private fun validateField(){
+        hideKeyboard()
         val cep = binding.textInputLayout.editText?.text.toString()
         if (cep.isEmpty()){
             binding.textInputLayout.editText?.error = getString(R.string.empty_field_error)
