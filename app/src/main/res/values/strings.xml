@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Cep - Koin</string>
     <string name="empty_field_error">Digite o cep</string>
+    <string name="general_error_msg">Erro desconhecido, tenta novamente mais tarde</string>
 </resources>
