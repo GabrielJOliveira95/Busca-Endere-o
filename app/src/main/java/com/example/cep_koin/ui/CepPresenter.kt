@@ -2,8 +2,11 @@ package com.example.cep_koin.ui
 
 import com.example.data.busines.dataClasses.AddressResponse
 import com.example.data.repository.CepRepository
+import com.example.extensions.callRx
 import com.example.extensions.singleSubscribe
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import java.net.UnknownHostException
 
 class CepPresenter(
@@ -15,17 +18,17 @@ class CepPresenter(
 
     override fun searchByCep(cep: String) {
         disposable.add(
-            repository.getAddressByCep(cep = cep).singleSubscribe(
-                onLoading = { view.isLoading(it) },
-                onSuccess = { response ->
+            repository.getAddressByCep(cep = cep)
+                .callRx()
+                .doOnSubscribe { view.isLoading(true) }
+                .doOnSuccess { response ->
                     view.isLoading(false)
                     setResponse(response)
-                },
-                onError = {
+                }.doOnError {
                     view.isLoading(false)
                     setException(it)
                 }
-            )
+                .subscribe()
         )
     }
 
