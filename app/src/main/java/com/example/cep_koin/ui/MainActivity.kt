@@ -3,8 +3,8 @@ package com.example.cep_koin.ui
 import android.os.Bundle
 import android.view.View
 import com.example.base.presentation.BaseActivity
-import com.example.cep_koin.databinding.ActivityMainBinding
 import com.example.cep_koin.R
+import com.example.cep_koin.databinding.ActivityMainBinding
 import com.example.extensions.hideKeyboard
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -23,20 +23,20 @@ class MainActivity : BaseActivity(), CepContract.View {
     }
 
     override fun showAddress(address: String) {
-        showToast(address)
+        showToastLong(address)
     }
 
     override fun onInternetError(msg: String) {
-        showToast(msg)
+        showToastLong(msg)
     }
 
     override fun onExceptionError(msg: Throwable) {
-       showToast(msg.localizedMessage)
+        showToastLong(msg.localizedMessage?: getString(R.string.general_error_msg))
     }
 
     override fun setListeners() {
         binding.button.setOnClickListener {
-           validateField()
+            validateField()
         }
     }
 
@@ -55,10 +55,10 @@ class MainActivity : BaseActivity(), CepContract.View {
         super.onDestroy()
     }
 
-    private fun validateField(){
+    private fun validateField() {
         hideKeyboard()
         val cep = binding.textInputLayout.editText?.text.toString()
-        if (cep.isEmpty()){
+        if (cep.isEmpty()) {
             binding.textInputLayout.editText?.error = getString(R.string.empty_field_error)
             binding.textInputLayout.isErrorEnabled = true
         } else {
