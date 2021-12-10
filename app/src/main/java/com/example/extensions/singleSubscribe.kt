@@ -1,5 +1,6 @@
 package com.example.extensions
 
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.observers.DisposableSingleObserver
@@ -26,3 +27,9 @@ fun <T> Single<T>.singleSubscribe(
             onError?.let { it(e) }
         }
     })
+
+fun <T>Single<T>.callRx(
+    subscribeOnScheduler: Scheduler? = Schedulers.io(),
+    observeOnScheduler: Scheduler? = AndroidSchedulers.mainThread()
+) = this.subscribeOn(subscribeOnScheduler)
+    .observeOn(observeOnScheduler)
