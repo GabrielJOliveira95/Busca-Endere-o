@@ -17,10 +17,11 @@ class CepPresenter(
     private val disposable by lazy { CompositeDisposable() }
 
     override fun searchByCep(cep: String) {
-        disposable.add(
             repository.getAddressByCep(cep = cep)
                 .callRx()
-                .doOnSubscribe { view.isLoading(true) }
+                .doOnSubscribe {
+                    view.isLoading(true)
+                }
                 .doOnSuccess { response ->
                     view.isLoading(false)
                     setResponse(response)
@@ -29,7 +30,9 @@ class CepPresenter(
                     setException(it)
                 }
                 .subscribe()
-        )
+                .also {
+                    disposable.add(it)
+                }
     }
 
     override fun destroyComposite() {

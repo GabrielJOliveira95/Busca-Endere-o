@@ -33,3 +33,9 @@ fun <T>Single<T>.callRx(
     observeOnScheduler: Scheduler? = AndroidSchedulers.mainThread()
 ) = this.subscribeOn(subscribeOnScheduler)
     .observeOn(observeOnScheduler)
+
+fun <T>Observable<T>.callRxObservable(
+    subscribeOnScheduler: Scheduler? = Schedulers.io(),
+    observeOnScheduler: Scheduler? = AndroidSchedulers.mainThread()
+) = this.subscribeOn(subscribeOnScheduler)
+    .observeOn(observeOnScheduler)
